@@ -4,9 +4,9 @@ import org.testng.annotations.Test;
 import ru.training.at.hw1.provider.DataProviderMultTest;
 
 import static org.testng.Assert.assertEquals;
-import static ru.training.at.hw1.Initial.calculator;
 
-public class MultTest {
+
+public class MultTest extends Initial {
 
     @Test(dataProviderClass = DataProviderMultTest.class,
             dataProvider = "dataForMultLongTest")

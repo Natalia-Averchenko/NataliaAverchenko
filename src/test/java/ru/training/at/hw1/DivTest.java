@@ -4,9 +4,8 @@ import org.testng.annotations.Test;
 import ru.training.at.hw1.provider.DataProviderDivTest;
 
 import static org.testng.Assert.assertEquals;
-import static ru.training.at.hw1.Initial.calculator;
 
-public class DivTest {
+public class DivTest extends Initial {
 
     @Test(dataProviderClass = DataProviderDivTest.class,
             dataProvider = "dataForDivDoubleTest")

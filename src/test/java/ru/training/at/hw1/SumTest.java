@@ -4,9 +4,9 @@ import org.testng.annotations.Test;
 import ru.training.at.hw1.provider.DataProviderSumTest;
 
 import static org.testng.Assert.assertEquals;
-import static ru.training.at.hw1.Initial.calculator;
 
-public class SumTest {
+
+public class SumTest extends Initial {
 
     @Test(dataProviderClass = DataProviderSumTest.class,
             dataProvider = "dataForSumLongTest")

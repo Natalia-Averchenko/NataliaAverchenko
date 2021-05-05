@@ -1,11 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="Tests for multiply and divide operations">
-    <test name="initial">
-        <classes>
-            <class name="ru.training.at.hw1.Initial"/>
-        </classes>
-    </test>
     <test name="MultTest">
         <classes>
             <class name="ru.training.at.hw1.MultTest"/>

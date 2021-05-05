@@ -1,19 +1,20 @@
 package ru.training.at.hw1;
 
 import com.epam.tat.module4.Calculator;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
-public class Initial {
 
-    public static Calculator calculator;
+public abstract class Initial {
 
-    @BeforeSuite
+    protected Calculator calculator;
+
+    @BeforeMethod
     public void createCalc() {
         calculator = new Calculator();
     }
 
-    @AfterSuite
+    @AfterMethod
     public void deleteCalc() {
         calculator = null;
     }
