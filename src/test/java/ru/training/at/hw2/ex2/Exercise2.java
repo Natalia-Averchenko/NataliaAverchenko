@@ -1,67 +1,18 @@
 package ru.training.at.hw2.ex2;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import ru.training.at.hw2.CommonEx1Ex2;
 
 import java.util.List;
 
 
-public class Exercise2 {
-
-    protected WebDriver driver;
-    protected SoftAssert softAssert = new SoftAssert();
-    final String siteUrl = "https://jdi-testing.github.io/jdi-light/index.html";
-    final String username = "Roman";
-    final String pass = "Jdi1234";
-    final String firstLastNames = "ROMAN IOVLEV";
-
-
-    @BeforeClass
-    public void setup() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-
-    @AfterClass
-    public void tearDown() {
-        // 10. Close Browser
-        driver.quit();
-    }
-
+public class Exercise2 extends CommonEx1Ex2 {
     @Test
-    public void webDriverStart() throws InterruptedException {
-
-        // 1. Open test site by URL
-        driver.get(siteUrl);
-        softAssert.assertEquals(driver.getCurrentUrl(), siteUrl);
-
-        // 2. Assert Browser title ( Browser title equals "Home Page")
-        String actualTitle = driver.getTitle();
-        String expectedTitle = "Home Page";
-        softAssert.assertEquals(actualTitle, expectedTitle);
-
-        // 3. Perform login
-        new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.elementToBeClickable(By.id("user-icon")))
-                .click();
-        driver.findElement(By.id("name")).sendKeys(username);
-        driver.findElement(By.id("password")).sendKeys(pass);
-        driver.findElement(By.id("login-button")).click();
-
-        // 4. Assert Username is loggined. Name is displayed and equals to expected result
-        String actualFirstLastName = driver.findElement(By.id("user-name")).getText();
-        softAssert.assertEquals(actualFirstLastName, firstLastNames);
+    public void webDriverStart() {
+        initTest();
 
         // 5. Open through the header menu Service -> Different Elements Page
         WebElement header = driver
@@ -97,8 +48,6 @@ public class Exercise2 {
         softAssert.assertTrue(listLog.get(1).getText().contains("value changed to Selen"));
         softAssert.assertTrue(listLog.get(2).getText().contains("condition changed to true"));
         softAssert.assertTrue(listLog.get(3).getText().contains("condition changed to true"));
-
         softAssert.assertAll();
-
     }
 }

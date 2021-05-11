@@ -1,79 +1,29 @@
 package ru.training.at.hw2.ex1;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.training.at.hw2.CommonEx1Ex2;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.testng.Assert.*;
 
-public class Exercise1 {
-
-    protected WebDriver driver;
-    final String siteUrl = "https://jdi-testing.github.io/jdi-light/index.html";
-    final String expectedTitle = "Home Page";
-    final String username = "Roman";
-    final String pass = "Jdi1234";
-    final String firstLastNames = "ROMAN IOVLEV";
-    final String[] header = new String[]{"HOME", "CONTACT FORM", "SERVICE", "METALS & COLORS"};
-
-
-    @BeforeClass
-    public void setup() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-
-    @AfterClass
-    public void tearDown() {
-        // 12. Close Browser
-        driver.quit();
-    }
+public class Exercise1 extends CommonEx1Ex2 {
 
     @Test
     public void webDriverStart() {
 
-        // 1. Open test site by URL
-        driver.get(siteUrl);
-        //assertEquals(driver.getCurrentUrl(), siteUrl);
-
-        // 2. Assert Browser title ( Browser title equals "Home Page")
-        String actualTitle = driver.getTitle();
-        assertEquals(actualTitle, expectedTitle);
-
-        // 3. Perform login
-        new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.elementToBeClickable(By.id("user-icon")))
-                .click();
-        //driver.findElement(By.id("user-icon")).click();
-        driver.findElement(By.id("name")).sendKeys(username);
-        driver.findElement(By.id("password")).sendKeys(pass);
-        driver.findElement(By.id("login-button")).click();
-
-        // 4. Assert Username is loggined. Name is displayed and equals to expected result
-        String actualFirstLastName = driver.findElement(By.id("user-name")).getText();
-        assertEquals(actualFirstLastName, firstLastNames);
+        initTest();
 
         // 5. Assert that there are 4 items on the header section are displayed
         // and they have proper texts
-
-        //List<WebElement> headerElements
-        // = driver.findElements(By.cssSelector("header .uui-header .uui-navigation > li"));
-
         List<WebElement> headerElements = driver
                 .findElements(By.cssSelector("ul.uui-navigation.nav.navbar-nav.m-l8 > li"));
-        for (int i = 0; i < 4; i++) {
-            assertEquals(headerElements.get(i).getText(), header[i]);
-        }
+        List<String> textHeaderElements = headerElements.stream()
+                .map(WebElement::getText).collect(Collectors.toList());
+        assertEquals(textHeaderElements, headerList);
 
         // 6. Assert that there are 4 images on the Index Page and they are displayed
         List<WebElement> benefitIcons = driver
@@ -123,23 +73,23 @@ public class Exercise1 {
 
         List<WebElement> searchElementHome =
                 leftSectionBar.findElements(By.xpath("//span[text()='Home']"));
-        assertEquals(searchElementHome.size(), 1);
+        assertFalse(searchElementHome.isEmpty());
 
         List<WebElement> searchElementContact =
                 leftSectionBar.findElements(By.xpath("//span[text()='Contact form']"));
-        assertEquals(searchElementContact.size(), 1);
+        assertFalse(searchElementContact.isEmpty());
 
         List<WebElement> searchElementService =
                 leftSectionBar.findElements(By.xpath("//span[text()='Service']"));
-        assertEquals(searchElementService.size(), 1);
+        assertFalse(searchElementService.isEmpty());
 
         List<WebElement> searchElementMetals =
                 leftSectionBar.findElements(By.xpath("//span[text()='Metals & Colors']"));
-        assertEquals(searchElementMetals.size(), 1);
+        assertFalse(searchElementMetals.isEmpty());
 
         List<WebElement> searchElementElementsPacks =
                 leftSectionBar.findElements(By.xpath("//span[text()='Elements packs']"));
-        assertEquals(searchElementElementsPacks.size(), 1);
+        assertFalse(searchElementElementsPacks.isEmpty());
 
     }
 }

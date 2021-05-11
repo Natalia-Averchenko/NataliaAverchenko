@@ -14,6 +14,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <checkstyle.version>8.41.1</checkstyle.version>
+        <selenium.version>3.141.59</selenium.version>
+        <webdrivermanager.version>4.4.1</webdrivermanager.version>
     </properties>
 
     <profiles>
@@ -69,17 +71,16 @@
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/library/calculator-1.0.jar</systemPath>
-            <!-- <type>jar</type> -->
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
+            <version>${selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>4.4.1</version>
+            <version>${webdrivermanager.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
