@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.epam.test.auto</groupId>
-    <artifactId>HomeWork1</artifactId>
+    <artifactId>HomeWorks</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -14,13 +14,24 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <checkstyle.version>8.41.1</checkstyle.version>
+        <selenium.version>3.141.59</selenium.version>
+        <webdrivermanager.version>4.4.1</webdrivermanager.version>
     </properties>
 
     <profiles>
         <profile>
-            <id>SumSubSuite</id>
+            <id>hw2Tests</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>${project.basedir}/src/test/resources/hw2Tests.xml</suite.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>SumSubSuite</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <suite.file>${project.basedir}/src/test/resources/SumSubSuite.xml</suite.file>
@@ -60,9 +71,20 @@
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/library/calculator-1.0.jar</systemPath>
-           <!-- <type>jar</type> -->
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
@@ -74,7 +96,7 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
-         <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
@@ -84,7 +106,6 @@
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -115,35 +136,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
-
-           <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>8.41.1</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>checkstyle</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
-
-
-
         </plugins>
     </build>
 
