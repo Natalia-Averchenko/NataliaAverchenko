@@ -18,9 +18,18 @@
 
     <profiles>
         <profile>
-            <id>SumSubSuite</id>
+            <id>hw3Tests</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>${project.basedir}/src/test/resources/hw3Tests.xml</suite.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>SumSubSuite</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <suite.file>${project.basedir}/src/test/resources/SumSubSuite.xml</suite.file>
@@ -115,35 +124,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
-
-           <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>8.41.1</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>checkstyle</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
-
-
-
         </plugins>
     </build>
 
