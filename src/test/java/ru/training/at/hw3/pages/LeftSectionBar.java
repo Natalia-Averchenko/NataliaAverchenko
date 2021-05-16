@@ -3,14 +3,13 @@ package ru.training.at.hw3.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.training.at.hw3.DriverManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LeftSectionBar extends DriverManager {
+public class LeftSectionBar extends BasePage {
 
-    @FindBy(xpath = " //ul[@class='sidebar-menu left']/li/a")
+    @FindBy(css = "ul.sidebar-menu.left>li>a>span")
     private List<WebElement> leftSectionBar;
 
     public LeftSectionBar(WebDriver driver) {

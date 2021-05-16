@@ -2,14 +2,23 @@ package ru.training.at.hw3.ex1;
 
 import org.testng.annotations.Test;
 import ru.training.at.hw3.BaseTest;
+import ru.training.at.hw3.DataProviderForTests;
+
+import java.util.List;
 
 import static org.testng.Assert.*;
 
 public class Exercise1 extends BaseTest {
 
-    @Test
-    public void ex1Test() {
-        initTest();
+    @Test(dataProviderClass = DataProviderForTests.class,
+            dataProvider = "dataForExercise1Test")
+    public void ex1Test(String siteUrl, String expectedTitle,
+                        String username, String pass, String firstLastNames,
+                        List<String> headerList, List<String> benefitsList,
+                        List<String> leftSectionList) {
+
+        initTest(siteUrl, expectedTitle,
+                username, pass, firstLastNames);
 
         // 5. Assert that there are 4 items on the header section are displayed
         // and they have proper texts
@@ -20,18 +29,7 @@ public class Exercise1 extends BaseTest {
             assertTrue(iconsVisibility);
         }
         // 7. Assert that there are 4 texts on the Index Page under icons and they have proper text
-        String firstBenefit = "To include good practices\n"
-                + "and ideas from successful\n" + "EPAM project";
-        String secondBenefit = "To be flexible and\n" + "customizable";
-        String thirdBenefit = "To be multiplatform";
-        String fourthBenefit = "Already have good base\n" + "(about 20 internal and\n"
-                + "some external projects),\n" + "wish to get more…";
-        String[] benefits = {firstBenefit, secondBenefit, thirdBenefit, fourthBenefit};
-        int i = 0;
-        for (String textOfBenefit : mainPage.getBenefitDesc()) {
-            assertEquals(textOfBenefit, benefits[i]);
-            i++;
-        }
+        assertEquals(mainPage.getBenefitDesc(), benefitsList);
 
         // 8. Assert that there is the iframe with “Frame Button” exist
         assertNotEquals(mainPage.getQtyIframesWithFrameButton(), 0);

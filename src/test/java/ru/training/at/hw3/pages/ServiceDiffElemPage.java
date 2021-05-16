@@ -3,12 +3,11 @@ package ru.training.at.hw3.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.training.at.hw3.DriverManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ServiceDiffElemPage extends DriverManager {
+public class ServiceDiffElemPage extends BasePage {
 
     @FindBy(css = "div.main-content label.label-checkbox")
     protected List<WebElement> checkBoxRow1;

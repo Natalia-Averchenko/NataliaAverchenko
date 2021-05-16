@@ -5,13 +5,12 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.training.at.hw3.DriverManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class MainPage extends DriverManager {
+public class MainPage extends BasePage {
 
     public HeaderMenu headerMenu;
     public LeftSectionBar leftSectionBar;
@@ -49,11 +48,14 @@ public class MainPage extends DriverManager {
         return driver.getTitle();
     }
 
-    public String login(String username, String pass) {
+    public void login(String username, String pass) {
         userIcon.click();
         login.sendKeys(username);
         password.sendKeys(pass);
         loginButton.click();
+    }
+
+    public String getUserName() {
         return userName.getText();
     }
 

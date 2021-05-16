@@ -3,17 +3,15 @@ package ru.training.at.hw3.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.training.at.hw3.DriverManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HeaderMenu extends DriverManager {
+public class HeaderMenu extends BasePage {
 
     @FindBy(css = "ul.uui-navigation.nav.navbar-nav.m-l8 > li")
     private List<WebElement> headerElements;
-    @FindBy(xpath =
-            "//ul[@class='uui-navigation nav navbar-nav m-l8']//ul[@class='dropdown-menu']/li/a")
+    @FindBy(css = "ul.uui-navigation.nav.navbar-nav.m-l8 ul.dropdown-menu>li")
     private List<WebElement> serviceMenu;
 
     public HeaderMenu(WebDriver driver) {

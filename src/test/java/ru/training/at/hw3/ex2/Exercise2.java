@@ -2,21 +2,25 @@ package ru.training.at.hw3.ex2;
 
 import org.testng.annotations.Test;
 import ru.training.at.hw3.BaseTest;
+import ru.training.at.hw3.DataProviderForTests;
 import ru.training.at.hw3.pages.ServiceDiffElemPage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Exercise2 extends BaseTest {
 
-    protected final String service = "SERVICE";
-    protected final String diffElements = "DIFFERENT ELEMENTS";
-    protected final String water = "Water";
-    protected final String wind = "Wind";
-    protected final String selen = "Selen";
 
-    @Test
-    public void ex2Test() throws InterruptedException {
-        initTest();
+    @Test(dataProviderClass = DataProviderForTests.class,
+            dataProvider = "dataForExercise2Test")
+    public void ex2Test(String siteUrl, String expectedTitle,
+                        String username, String pass, String firstLastNames, String service,
+                        String diffElements, String water, String wind, String selen,
+                        List<String> expectedLogContent) {
+
+
+        initTest(siteUrl, expectedTitle,
+                username, pass, firstLastNames);
 
         // 5. Open through the header menu Service -> Different Elements Page
         mainPage.headerMenu.clickHeaderMenuItem(service);
@@ -33,12 +37,11 @@ public class Exercise2 extends BaseTest {
         // 8. Select in dropdown - Yellow
         serviceDiffElemPage.selectColor("Yellow");
 
-        // 9. Assert that
+        // 9. Assert change log
         List<String> textOfLog = serviceDiffElemPage.getLogText();
-        softAssert.assertTrue(textOfLog.get(0).contains("value changed to Yellow"));
-        softAssert.assertTrue(textOfLog.get(1).contains("value changed to Selen"));
-        softAssert.assertTrue(textOfLog.get(2).contains("condition changed to true"));
-        softAssert.assertTrue(textOfLog.get(3).contains("condition changed to true"));
+        textOfLog = textOfLog.stream().map(s -> s.substring(9)).collect(Collectors.toList());
+        softAssert.assertEquals(textOfLog, expectedLogContent);
+
         softAssert.assertAll();
 
     }
