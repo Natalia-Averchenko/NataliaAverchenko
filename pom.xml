@@ -16,24 +16,28 @@
         <checkstyle.version>8.41.1</checkstyle.version>
         <selenium.version>3.141.59</selenium.version>
         <webdrivermanager.version>4.4.1</webdrivermanager.version>
-        <aspectj.version>1.8.10</aspectj.version>
         <allure.version>2.13.2</allure.version>
+        <aspectj.version>1.8.10</aspectj.version>
+        <commons-io.version>2.7</commons-io.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <lombok.version>1.18.10</lombok.version>
+        <slf4j-simple.version>1.7.30</slf4j-simple.version>
     </properties>
 
     <profiles>
         <profile>
             <id>hw4Tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.file>${project.basedir}/src/test/resources/hw3Tests.xml</suite.file>
+                <suite.file>${project.basedir}/src/test/resources/hw4Tests.xml</suite.file>
             </properties>
         </profile>
         <profile>
             <id>hw3Tests</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <suite.file>${project.basedir}/src/test/resources/hw3Tests.xml</suite.file>
@@ -84,6 +88,12 @@
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.epam.tat.module4</groupId>
@@ -91,6 +101,12 @@
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/library/calculator-1.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.19.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -101,7 +117,6 @@
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
@@ -110,7 +125,6 @@
         </dependency>
     </dependencies>
 
-
     <build>
         <plugins>
             <plugin>
@@ -118,24 +132,24 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
                 <configuration>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
-                    <systemPropertyVariables>
-                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
-                    </systemPropertyVariables>
                     <suiteXmlFiles>
                         <suiteXmlFile>${suite.file}</suiteXmlFile>
                     </suiteXmlFiles>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                    <systemProperties>
+                        <browser.name>chrome</browser.name>
+                    </systemProperties>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -145,19 +159,20 @@
                     </dependency>
                 </dependencies>
             </plugin>
-             <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-checkstyle-plugin</artifactId>
-                  <version>3.1.2</version>
-                  <dependencies>
-                      <dependency>
-                          <groupId>com.puppycrawl.tools</groupId>
-                          <artifactId>checkstyle</artifactId>
-                          <version>${checkstyle.version}</version>
-                      </dependency>
-                  </dependencies>
-                  <configuration>
-                      <configLocation>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>
+                        <!--  pay attention to use exact url for checkstyle plugin ruleset  -->
                         https://raw.githubusercontent.com/DmitryKhodakovsky/epam-test-auto-spring-2021/master/codestyle_checks.xml
                     </configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
