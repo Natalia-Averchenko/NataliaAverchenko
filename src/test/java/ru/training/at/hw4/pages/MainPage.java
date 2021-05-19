@@ -68,6 +68,9 @@ public class MainPage extends BasePage {
     public List<String> getBenefitDesc() {
         List<String> textOfBenefit = benefitDesc.stream()
                 .map(WebElement::getText).collect(Collectors.toList());
+        String elem = textOfBenefit.get(3).substring(0, textOfBenefit.get(3).length() - 1);
+        textOfBenefit.remove(3);
+        textOfBenefit.add(elem);
         return textOfBenefit;
     }
 

@@ -23,6 +23,38 @@ public class DataProviderForTests {
     protected static String water;
     protected static String wind;
     protected static String selen;
+
+    protected static String h0;
+    protected static String h1;
+    protected static String h2;
+    protected static String h3;
+    protected static List<String> headerList;
+
+    protected static String firstBenefit0;
+    protected static String firstBenefit1;
+    protected static String firstBenefit2;
+    protected static String secondBenefit0;
+    protected static String secondBenefit1;
+    protected static String thirdBenefit;
+    protected static String fourthBenefit0;
+    protected static String fourthBenefit1;
+    protected static String fourthBenefit2;
+    protected static String fourthBenefit3;
+    protected static List<String> benefitsList;
+
+    protected static String home;
+    protected static String contact;
+    protected static String serviceLeftSection;
+    protected static String mc;
+    protected static String ep;
+    protected static List<String> leftSectionList;
+
+    protected static String colorsChanged;
+    protected static String metalChanged;
+    protected static String windChanged;
+    protected static String waterChanged;
+    protected static List<String> expectedLogContent;
+
     protected static Properties prop;
 
     public static void setProperties() {
@@ -40,33 +72,49 @@ public class DataProviderForTests {
             water = prop.getProperty("water");
             wind = prop.getProperty("wind");
             selen = prop.getProperty("selen");
+
+            h0 = prop.getProperty("h0");
+            h1 = prop.getProperty("h1");
+            h2 = prop.getProperty("h2");
+            h3 = prop.getProperty("h3");
+            String[] header = {h0, h1, h2, h3};
+            headerList = Arrays.asList(header);
+
+            firstBenefit0 = prop.getProperty("firstBenefit0");
+            firstBenefit1 = prop.getProperty("firstBenefit1");
+            firstBenefit2 = prop.getProperty("firstBenefit2");
+            secondBenefit0 = prop.getProperty("secondBenefit0");
+            secondBenefit1 = prop.getProperty("secondBenefit1");
+            thirdBenefit = prop.getProperty("thirdBenefit");
+            fourthBenefit0 = prop.getProperty("fourthBenefit0");
+            fourthBenefit1 = prop.getProperty("fourthBenefit1");
+            fourthBenefit2 = prop.getProperty("fourthBenefit2");
+            fourthBenefit3 = prop.getProperty("fourthBenefit3");
+            String[] benefits = {firstBenefit0 + "\n" + firstBenefit1 + "\n" + firstBenefit2,
+                secondBenefit0 + "\n" + secondBenefit1,
+                thirdBenefit,
+                fourthBenefit0 + "\n" + fourthBenefit1 + "\n" + fourthBenefit2
+                    + "\n" + fourthBenefit3};
+            benefitsList = Arrays.asList(benefits);
+
+            home = prop.getProperty("home");
+            contact = prop.getProperty("contact");
+            serviceLeftSection = prop.getProperty("serviceLeftSection");
+            mc = prop.getProperty("mc");
+            ep = prop.getProperty("ep");
+            String[] leftSection = {home, contact, serviceLeftSection, mc, ep};
+            leftSectionList = Arrays.asList(leftSection);
+
+            colorsChanged = prop.getProperty("colorsChanged");
+            metalChanged = prop.getProperty("metalChanged");
+            windChanged = prop.getProperty("windChanged");
+            waterChanged = prop.getProperty("waterChanged");
+            String[] log = {colorsChanged, metalChanged, windChanged, waterChanged};
+            expectedLogContent = Arrays.asList(log);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    protected final String[] header = {"HOME", "CONTACT FORM", "SERVICE", "METALS & COLORS"};
-    protected final List<String> headerList = Arrays.asList(header);
-
-    protected final String firstBenefit = "To include good practices\n"
-            + "and ideas from successful\n" + "EPAM project";
-    protected final String secondBenefit = "To be flexible and\n" + "customizable";
-    protected final String thirdBenefit = "To be multiplatform";
-    protected final String fourthBenefit = "Already have good base\n" + "(about 20 internal and\n"
-            + "some external projects),\n" + "wish to get more…";
-    protected final String[] benefits = {firstBenefit, secondBenefit, thirdBenefit, fourthBenefit};
-    protected final List<String> benefitsList = Arrays.asList(benefits);
-
-    protected final String mc = "Metals & Colors";
-    protected final String ep = "Elements packs";
-    protected final String[] leftSection = {"Home", "Contact form", "Service", mc, ep};
-    protected final List<String> leftSectionList = Arrays.asList(leftSection);
-
-    protected final String[] log = {"Colors: value changed to Yellow",
-        "metal: value changed to Selen",
-        "Wind: condition changed to true", "Water: condition changed to true"};
-    protected final List<String> expectedLogContent = Arrays.asList(log);
-
 
     @DataProvider
     public Object[][] dataForExercise1Test() {
