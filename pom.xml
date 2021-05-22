@@ -22,13 +22,23 @@
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <lombok.version>1.18.10</lombok.version>
         <slf4j-simple.version>1.7.30</slf4j-simple.version>
+        <cucumber.version>6.9.1</cucumber.version>
     </properties>
 
     <profiles>
         <profile>
-            <id>hw4Tests</id>
+            <id>hw5Tests</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>${project.basedir}/src/test/resources/hw5/hw5Tests.xml</suite.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>hw4Tests</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <suite.file>${project.basedir}/src/test/resources/hw4Tests.xml</suite.file>
@@ -114,6 +124,11 @@
             <version>${selenium.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j-simple.version}</version>
+        </dependency>
+        <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
@@ -122,6 +137,21 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
 

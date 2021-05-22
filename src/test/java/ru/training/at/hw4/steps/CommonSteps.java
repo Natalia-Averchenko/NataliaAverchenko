@@ -14,7 +14,7 @@ public class CommonSteps {
         mainPage = new MainPage(driver);
     }
 
-    @Step("Open test site by URL")
+    @Step("Open test site by URL. Assert that site URL equals to expected")
     public void openPage(String siteUrl) {
         String currentUrl = mainPage.openMainPage(siteUrl);
         assertEquals(currentUrl, siteUrl);
