@@ -3,13 +3,13 @@ package ru.training.at.hw6.entities;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ElemMetColVeg {
+public class MetalsColorsPageData {
 
-    public ElemMetColVeg() {
+    public MetalsColorsPageData() {
     }
 
-    public ElemMetColVeg(int[] summary, String[] elements,
-                         String color, String metals, String[] vegetables) {
+    public MetalsColorsPageData(int[] summary, String[] elements,
+                                String color, String metals, String[] vegetables) {
         this.summary = summary;
         this.elements = elements;
         this.color = color;

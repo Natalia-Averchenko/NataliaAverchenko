@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-import ru.training.at.hw6.entities.ElemMetColVeg;
+import ru.training.at.hw6.entities.MetalsColorsPageData;
 import ru.training.at.hw6.entities.User;
 
 public class JdiTest {
@@ -22,16 +22,18 @@ public class JdiTest {
     }
 
 
-    @Test(dataProviderClass = DataProviderForTest.class, dataProvider = "dataForMetalsColorsTest")
-    public void testMetalsColorsPage(ElemMetColVeg data) {
+    @Test(dataProviderClass = DataProviderForMetalsColorsPageTest.class,
+            dataProvider = "dataForMetalsColorsTest")
+    public void testMetalsColorsPage(MetalsColorsPageData metalsColorsData) {
         JdiSite.open();
         JdiSite.login(User.ROMAN);
         JdiSite.jdiHomePage.checkUserLoggedIn(User.ROMAN);
         JdiSite.jdiHomePage.openMetalsColorsPage();
         JdiSite.metalsColorsPage.checkOpened();
-        JdiSite.metalsColorsPage.fillForm(data);
+        JdiSite.metalsColorsPage.fill(metalsColorsData);
         JdiSite.metalsColorsPage.submit();
-        Assert.assertEquals(data.getMapFromJsonData(), JdiSite.metalsColorsPage.getResult());
+        Assert.assertEquals(metalsColorsData.getMapFromJsonData(),
+                JdiSite.metalsColorsPage.getResult());
         JdiSite.metalsColorsPage.logout();
     }
 

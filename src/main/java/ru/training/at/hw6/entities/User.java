@@ -3,9 +3,9 @@ package ru.training.at.hw6.entities;
 public class User {
     public static final User ROMAN = new User("Roman", "Jdi1234", "ROMAN IOVLEV");
 
-    private String name;
-    private String password;
-    private String fullName;
+    private final String name;
+    private final String password;
+    private final String fullName;
 
     public User(String name, String password, String fullName) {
         this.name = name;
