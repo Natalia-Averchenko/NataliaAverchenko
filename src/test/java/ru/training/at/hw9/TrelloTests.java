@@ -3,12 +3,12 @@ package ru.training.at.hw9;
 import io.restassured.http.Method;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import ru.training.at.hw9.beans.TrelloAnswer;
+import ru.training.at.hw9.beans.TrelloBoard;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static ru.training.at.hw9.core.BaseApi.baseResponseSpecification;
 import static ru.training.at.hw9.core.BoardApi.*;
 import static ru.training.at.hw9.core.ListApi.requestBuilderList;
@@ -21,20 +21,23 @@ public class TrelloTests {
     @Test(dataProviderClass = DataProviderTrelloTest.class,
             dataProvider = "dataForTableCreatingTest")
     public void checkAnswerStatusAfterCreatingTable(String tableName) {
-        requestBuilderBoard()
-                .setTableName(tableName)
-                .buildRequest()
-                .sendRequest()
-                .then().assertThat()
-                .spec(baseResponseSpecification())
-                .body(containsString("id"))
-                .body(containsString("FirstTable"));
+        TrelloBoard answer = getBoard(
+                requestBuilderBoard()
+                        .setTableName(tableName)
+                        .buildRequest()
+                        .sendRequest()
+                        .then().assertThat()
+                        .spec(baseResponseSpecification())
+                        .extract()
+                        .response());
+        assertEquals(answer.getName(), tableName);
+        assertNotNull(answer.getId());
     }
 
     @Test(dataProviderClass = DataProviderTrelloTest.class,
             dataProvider = "dataForTableCreatingTest")
     public void checkAnswerContentAfterCreatingTable(String tableName) {
-        TrelloAnswer answer = getAnswer(
+        TrelloBoard answer = getBoard(
                 requestBuilderBoard()
                         .setTableName(tableName)
                         .buildRequest()
@@ -53,8 +56,7 @@ public class TrelloTests {
                 .buildRequest()
                 .sendRequest()
                 .then().assertThat()
-                .spec(baseResponseSpecification())
-                .body(containsString("FirstList"));
+                .spec(baseResponseSpecification());
     }
 
     @Test
@@ -67,7 +69,7 @@ public class TrelloTests {
                 .spec(baseResponseSpecification());
     }
 
-    @Test(dependsOnMethods = { "checkAnswerContentAfterCreatingTable" })
+    @Test(dependsOnMethods = {"checkAnswerContentAfterCreatingTable"})
     public void checkMissingTableAfterDeleting() {
         requestBuilderBoard()
                 .setMethod(Method.GET)
@@ -79,12 +81,12 @@ public class TrelloTests {
 
     @AfterClass
     public void deletingAllCreatedBoards() {
-        List<TrelloAnswer> answers = getAnswers(
+        List<TrelloBoard> answers = getBoards(
                 requestBuilderBoard()
                         .setMethod(Method.GET)
                         .buildRequest()
                         .sendRequestByOrg(organizationId));
-        for (TrelloAnswer ans : answers){
+        for (TrelloBoard ans : answers) {
             requestBuilderBoard()
                     .setMethod(Method.DELETE)
                     .buildRequest()

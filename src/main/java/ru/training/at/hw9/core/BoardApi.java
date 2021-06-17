@@ -8,7 +8,7 @@ import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import ru.training.at.hw9.beans.TrelloAnswer;
+import ru.training.at.hw9.beans.TrelloBoard;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -67,7 +67,7 @@ public class BoardApi extends BaseApi {
     }
 
     public Response sendRequestByOrg(String orgId) {
-        URI orgUri = URI.create("https://api.trello.com/1/organizations/"+orgId+"/boards");
+        URI orgUri = URI.create(BASEURI+"/organizations/"+orgId+"/boards");
         return RestAssured
                 .given(requestSpecification()).log().all()
                 .queryParams(parameters)
@@ -83,17 +83,17 @@ public class BoardApi extends BaseApi {
                 .build();
     }
 
-    public static TrelloAnswer getAnswer(Response response) {
-        TrelloAnswer answer = new Gson()
-                .fromJson(response.asString().trim(), new TypeToken<TrelloAnswer>() {
+    public static TrelloBoard getBoard(Response response) {
+        TrelloBoard board = new Gson()
+                .fromJson(response.asString().trim(), new TypeToken<TrelloBoard>() {
                 }.getType());
-        return answer;
+        return board;
     }
 
-    public static List<TrelloAnswer> getAnswers(Response response) {
-        List<TrelloAnswer> answers = new Gson()
-                .fromJson(response.asString().trim(), new TypeToken<List<TrelloAnswer>>() {
+    public static List<TrelloBoard> getBoards(Response response) {
+        List<TrelloBoard> boards = new Gson()
+                .fromJson(response.asString().trim(), new TypeToken<List<TrelloBoard>>() {
                 }.getType());
-        return answers;
+        return boards;
     }
 }
